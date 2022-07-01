@@ -23,8 +23,9 @@ int	main(int ac, char **av)
 		while (++x < ac)
 		{
 			i = -1;
-			while (++i < strlen(av[x]))
-				std::cout << (char)toupper(av[x][i]);
+			std::string	str(av[x]);
+			while (++i < str.length())
+				std::cout << (char)toupper(str[i]);
 		}
 	}
 	else

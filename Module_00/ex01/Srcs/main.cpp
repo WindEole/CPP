@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Phonebook.class.hpp"
-//#include "Contact.class.hpp"
-//#include <iostream>
+#include "Phonebook.hpp"
+#include "Contact.hpp"
 
 int	main(void)
 {
-	bool		nbc;
+	int			nbc;
 	PhoneBook	phonebook;
 	std::string	input;
 
@@ -25,16 +24,30 @@ int	main(void)
 	while (1)
 	{
 		std::getline(std::cin, input);
-		if (input == "ADD")
+		if (input == "ADD" || input == "add")
 		{
-			phonebook.addcontact(nbc);
+			if (!phonebook.addContact(nbc))
+			{
+				std::cout << "\nTo protect privacy, all data will be erased. Goodbye !" << std::endl;
+				break;
+			}
 			nbc++;
 			if (nbc == 8)
+			{
+				std::cout << "You have reached the maximum number of contacts allowed. ";
+				std::cout << "A new contact will replace the oldest one. \n> ";
 				nbc = 0;
+			}
 		}
-		// else if (input = "SEARCH")
-		// 	//searchcontact;
-		else if (input == "EXIT" || std::cin.eof() == 1)
+		else if (input == "SEARCH" || input == "search")
+		{
+			if (!phonebook.searchContact())
+			{
+				std::cout << "\nTo protect privacy, all data will be erased. Goodbye !" << std::endl;
+				break;
+			}
+		}
+		else if (input == "EXIT" || input == "exit" || std::cin.eof() == 1)
 		{
 			std::cout << "To protect privacy, all data will be erased. Goodbye !" << std::endl;
 			break;

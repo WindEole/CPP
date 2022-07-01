@@ -20,10 +20,9 @@ RM		=	/usr/bin/rm -rf
 
 vpath %.c Srcs
 
-SRC		=	Srcs/Phonebook.class.cpp \
+SRC		=	Srcs/Phonebook.cpp \
 			Srcs/main.cpp \
-#			Srcs/Contact.class.cpp \
-
+			Srcs/Contact.cpp \
 
 OBJ		=	$(SRC:Srcs/%.cpp=Objs/%.o)
 
@@ -33,8 +32,13 @@ all			:	obj $(NAME)
 $(NAME)		:	$(OBJ)
 				$(CC) $(CFLAGS) -o $(NAME) $(SRC)
 
+
 obj			:
-				mkdir -p Objs
+				@if [ ! -d "./Objs" ]; then\
+					echo "mkdir -p Objs";\
+					mkdir -p Objs;\
+				fi
+				@echo ""
 
 Objs/%.o	:	Srcs/%.cpp
 				$(CC) -o $@ -c $< $(CFLAGS)
@@ -48,4 +52,4 @@ fclean		:	clean
 
 re			:	fclean all
 
-.PHONY		:	all clean fclean re
+.PHONY		:	all obj clean fclean re
